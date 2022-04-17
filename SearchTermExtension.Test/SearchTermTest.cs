@@ -5,6 +5,12 @@ namespace SearchTermExtension.Test
 {
     internal class SearchTermTest
     {
+        [SetUp]
+        public void SetUp()
+        {
+            SearchTerm.DefaultFlags = SearchTermTokenFlags.None;
+        }
+
         [Test]
         public void EmptyParsing()
         {
