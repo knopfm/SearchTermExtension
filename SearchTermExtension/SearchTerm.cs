@@ -73,6 +73,7 @@
         private static string RegexPreprocess(string value, bool exact)
         {
             value = value
+                .Replace("\\", "\\\\")  // replace \ with \\
                 .Replace(".", @"\.")    // replace dot-regex with dot-value
                 .Replace("?", ".{1}")   // replace single char
                 .Replace("*", @"\.*")   // replace wildcard
