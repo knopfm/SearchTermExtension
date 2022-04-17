@@ -136,6 +136,19 @@ namespace SearchTermExtension.Test
             Assert.IsTrue(SearchTermExpression.EvaluateTerm(
                 new SearchTermToken(SearchTermTokenType.Contains, SearchTermTokenFlags.Regex | SearchTermTokenFlags.CaseInvariant, "ter\\.*"), "Term2"));
         }
+
+        [Test]
+        public void RegexOneCharExact()
+        {
+            Assert.IsTrue(SearchTermExpression.EvaluateTerm(
+                new SearchTermToken(SearchTermTokenType.Contains, SearchTermTokenFlags.Regex | SearchTermTokenFlags.Exact, "^ter.{1}1$"), "term1"));
+            Assert.IsFalse(SearchTermExpression.EvaluateTerm(
+                new SearchTermToken(SearchTermTokenType.Contains, SearchTermTokenFlags.Regex | SearchTermTokenFlags.Exact, "^ter.{1}1$"), "Term1"));
+            Assert.IsFalse(SearchTermExpression.EvaluateTerm(
+                new SearchTermToken(SearchTermTokenType.Contains, SearchTermTokenFlags.Regex | SearchTermTokenFlags.Exact, "^ter.{1}1$"), "term2"));
+            Assert.IsFalse(SearchTermExpression.EvaluateTerm(
+                new SearchTermToken(SearchTermTokenType.Contains, SearchTermTokenFlags.Regex | SearchTermTokenFlags.Exact, "^ter.{1}1$"), "Term2"));
+        }
         #endregion
 
         #region Evaluate

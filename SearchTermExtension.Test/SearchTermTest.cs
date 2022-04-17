@@ -204,6 +204,15 @@ namespace SearchTermExtension.Test
             Assert.AreEqual(1, result.SearchTokens.Count());
         }
 
+        [Test]
+        public void RegexExact()
+        {
+            var result = SearchTerm.Parse("\"t?rm\"");
+            Assert.IsNotNull(result);
+            TestResult(result, 0, "^t.{1}rm$", SearchTermTokenFlags.Regex | SearchTermTokenFlags.Exact, SearchTermTokenType.Contains);
+            Assert.AreEqual(1, result.SearchTokens.Count());
+        }
+
         private static void TestResult(SearchTermExpression result, int index, string expectedValue, SearchTermTokenFlags expectedFlags, SearchTermTokenType expectedType)
         {
             Assert.Less(index, result.SearchTokens.Count());
