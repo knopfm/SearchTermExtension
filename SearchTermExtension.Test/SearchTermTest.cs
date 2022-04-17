@@ -187,11 +187,21 @@ namespace SearchTermExtension.Test
         }
 
         [Test]
+        public void RegexWildcardExact()
+        {
+            var result = SearchTerm.Parse("ter* \"term2\"");
+            Assert.IsNotNull(result);
+            TestResult(result, 0, "ter.*", SearchTermTokenFlags.Regex, SearchTermTokenType.Contains);
+            TestResult(result, 1, "term2", SearchTermTokenFlags.Exact, SearchTermTokenType.Contains);
+            Assert.AreEqual(2, result.SearchTokens.Count());
+        }
+
+        [Test]
         public void RegexWildcard()
         {
             var result = SearchTerm.Parse("term*");
             Assert.IsNotNull(result);
-            TestResult(result, 0, "term\\.*", SearchTermTokenFlags.Regex, SearchTermTokenType.Contains);
+            TestResult(result, 0, "term.*", SearchTermTokenFlags.Regex, SearchTermTokenType.Contains);
             Assert.AreEqual(1, result.SearchTokens.Count());
         }
                 
@@ -212,6 +222,16 @@ namespace SearchTermExtension.Test
             TestResult(result, 0, "^t.{1}rm$", SearchTermTokenFlags.Regex | SearchTermTokenFlags.Exact, SearchTermTokenType.Contains);
             Assert.AreEqual(1, result.SearchTokens.Count());
         }
+
+        [Test]
+        public void RegexExactWildcard()
+        {
+            var result = SearchTerm.Parse("\"term*\"");
+            Assert.IsNotNull(result);
+            TestResult(result, 0, "^term.*$", SearchTermTokenFlags.Regex | SearchTermTokenFlags.Exact, SearchTermTokenType.Contains);
+            Assert.AreEqual(1, result.SearchTokens.Count());
+        }
+
 
         private static void TestResult(SearchTermExpression result, int index, string expectedValue, SearchTermTokenFlags expectedFlags, SearchTermTokenType expectedType)
         {

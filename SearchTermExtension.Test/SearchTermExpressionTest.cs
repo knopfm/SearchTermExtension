@@ -149,6 +149,19 @@ namespace SearchTermExtension.Test
             Assert.IsFalse(SearchTermExpression.EvaluateTerm(
                 new SearchTermToken(SearchTermTokenType.Contains, SearchTermTokenFlags.Regex | SearchTermTokenFlags.Exact, "^ter.{1}1$"), "Term2"));
         }
+
+        [Test]
+        public void RegexWildcardExact()
+        {
+            Assert.IsTrue(SearchTermExpression.EvaluateTerm(
+                new SearchTermToken(SearchTermTokenType.Contains, SearchTermTokenFlags.Regex | SearchTermTokenFlags.Exact, "^ter.*$"), "term1"));
+            Assert.IsFalse(SearchTermExpression.EvaluateTerm(
+                new SearchTermToken(SearchTermTokenType.Contains, SearchTermTokenFlags.Regex | SearchTermTokenFlags.Exact, "^ter.*$"), "Term1"));
+            Assert.IsTrue(SearchTermExpression.EvaluateTerm(
+                new SearchTermToken(SearchTermTokenType.Contains, SearchTermTokenFlags.Regex | SearchTermTokenFlags.Exact, "^ter.*$"), "term2"));
+            Assert.IsFalse(SearchTermExpression.EvaluateTerm(
+                new SearchTermToken(SearchTermTokenType.Contains, SearchTermTokenFlags.Regex | SearchTermTokenFlags.Exact, "^ter.*$"), "Term2"));
+        }
         #endregion
 
         #region Evaluate

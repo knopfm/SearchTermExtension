@@ -95,7 +95,7 @@
                 .Replace("\\", "\\\\")  // replace \ with \\
                 .Replace(".", @"\.")    // replace dot-regex with dot-value
                 .Replace("?", ".{1}")   // replace single char
-                .Replace("*", @"\.*")   // replace wildcard
+                .Replace("*", ".*")     // replace wildcard
                 ;
             return exact ? $"^{value}$" : value;
         }
