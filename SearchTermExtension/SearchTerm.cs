@@ -4,10 +4,12 @@
     {
         internal static readonly char[] SearchStringSplitter = { ' ', ';', ',', '/' };
 
+        public static SearchTermTokenFlags DefaultFlags { get; set; } = SearchTermTokenFlags.CaseInvariant;
+
         public static SearchTermExpression Parse(string term)
         {
             int startIndex = 0;
-            SearchTermTokenFlags tokenFlags = SearchTermTokenFlags.None;
+            SearchTermTokenFlags tokenFlags = DefaultFlags;
             List<SearchTermToken> resultTokens = new();
             for (int i = 0; i < term.Length; i++)
             {
@@ -26,7 +28,7 @@
                     else
                         resultTokens.Add(new(SearchTermTokenType.Contains, tokenFlags, term[startIndex..i]));
                     startIndex = i + 1;
-                    tokenFlags = SearchTermTokenFlags.None;
+                    tokenFlags = DefaultFlags;
                 }
 
                 if ((c == '!' || c == '-') && !tokenFlags.HasFlag(SearchTermTokenFlags.Not) && !tokenFlags.HasFlag(SearchTermTokenFlags.Exact))
@@ -56,7 +58,7 @@
                         else
                             resultTokens.Add(new(SearchTermTokenType.Contains, tokenFlags, term[startIndex..i]));
                         startIndex = i + 1;
-                        tokenFlags = SearchTermTokenFlags.None;
+                        tokenFlags = DefaultFlags;
                     }
                 }
             }
