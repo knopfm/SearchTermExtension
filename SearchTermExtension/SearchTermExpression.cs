@@ -52,6 +52,8 @@ namespace SearchTermExtension
         /// <returns>True if the <see cref="string"/> matches the token.</returns>
         public static bool EvaluateTerm(SearchTermToken token, string propertyString)
         {
+            if (token.Flags.HasFlag(SearchTermTokenFlags.Regex) && token.Flags.HasFlag(SearchTermTokenFlags.Exact))
+                return new Regex(token.Value, token.Flags.HasFlag(SearchTermTokenFlags.CaseInvariant) ? RegexOptions.IgnoreCase : RegexOptions.None).IsMatch(propertyString);
             if (token.Flags.HasFlag(SearchTermTokenFlags.Regex))
                 return propertyString
                         .Split(SearchTerm.SearchStringSplitter, StringSplitOptions.RemoveEmptyEntries)
