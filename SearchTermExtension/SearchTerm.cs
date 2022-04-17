@@ -15,7 +15,7 @@
         /// <summary>
         /// Parses a search term to its words an determs the flags for searching.
         /// <code>var term = SearchTerm.Parse("input");
-        /// var results = source.Search(x => x.Property1).ApplyTerm(term);</code>
+        /// var results = source.SearchWithTerm(x => x.Property1).ApplyTerm(term);</code>
         /// </summary>
         /// <param name="term">The input search term.</param>
         /// <returns>A instance of <see cref="SearchTermExpression"/>, which representates the search term for searching.</returns>

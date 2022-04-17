@@ -11,7 +11,7 @@ namespace SearchTermExtension.Test
         public void OneTermNormal()
         {
             var terms = SearchTerm.Parse("term1");
-            var result = CreateList.Search(AllProperties).ApplyTerm(terms);
+            var result = CreateList.SearchWithTerm(AllProperties).ApplyTerm(terms);
             Assert.IsNotNull(result);
             Compare(CreateList, result, 0);
             Compare(CreateList, result, 1);
@@ -22,7 +22,7 @@ namespace SearchTermExtension.Test
         public void TwoTermNormal()
         {
             var terms = SearchTerm.Parse("term1 term2");
-            var result = CreateList.Search(AllProperties).ApplyTerm(terms);
+            var result = CreateList.SearchWithTerm(AllProperties).ApplyTerm(terms);
             Assert.IsNotNull(result);
             Compare(CreateList, result, 0);
             Assert.AreEqual(1, result.Count());
@@ -32,7 +32,7 @@ namespace SearchTermExtension.Test
         public void DoubleTermNormal()
         {
             var terms = SearchTerm.Parse("term3 term3");
-            var result = CreateList.Search(AllProperties).ApplyTerm(terms);
+            var result = CreateList.SearchWithTerm(AllProperties).ApplyTerm(terms);
             Assert.IsNotNull(result);
             Compare(CreateList, result, 0);
             Compare(CreateList, result, 3);
